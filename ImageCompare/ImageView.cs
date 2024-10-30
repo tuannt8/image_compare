@@ -49,11 +49,13 @@ namespace ImageCompare
         //private System.Drawing.Image mImage = null;
         private Bitmap mBitmap = null;
 
-        public ImageView() : base()
+        public ImageView(string imPath) : base()
         {
             //mImage = System.Drawing.Image.FromFile("D:/data/test/aa_cpu.tif");
-            mBitmap = new Bitmap("D:/data/test/aa_cpu.tif");
-
+            if (imPath != null)
+            {
+                mBitmap = new Bitmap(imPath);
+            }
 
             MouseDown += new MouseEventHandler(this.MouseDownHandler);
             MouseMove += new MouseEventHandler(this.MouseMoveHandler);
@@ -79,8 +81,6 @@ namespace ImageCompare
 
         private void MouseMoveHandler(object sender, MouseEventArgs e)
         {
-            
-
             if(panning)
             {
                 int moveX = e.X - mouseStart.X;

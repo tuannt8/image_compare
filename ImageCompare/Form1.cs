@@ -22,11 +22,6 @@ namespace ImageCompare
         List<ImageView> imageList = new List<ImageView>();
         ViewMode viewMode = ViewMode.ALl;
 
-        List<string> testPath = new List<string>{ 
-            "D:/data/test/aa_cpu.tif",
-            "D:/data/test/curve.png",
-            "D:/data/test/aa_cpu.tif"
-        };
         public Form1()
         {
             
@@ -79,7 +74,7 @@ namespace ImageCompare
             {
                 foreach (var im in file)
                 {
-                    var newImageBox = new ImageView();
+                    var newImageBox = new ImageView(im);
                     newImageBox.Dock = DockStyle.Fill;
 
                     imageList.Add(newImageBox);
@@ -143,8 +138,14 @@ namespace ImageCompare
                 this.imageLayout.ColumnCount = 1;
                 this.imageLayout.ColumnStyles.Add(new RowStyle(SizeType.Percent, 100F));
 
+
+                foreach (var image in imageList)
+                {
+                    this.imageLayout.Controls.Add(image);
+                }
+
                 // Set to active selection
-                if(this.listImagePath.SelectedIndex == -1)
+                if (this.listImagePath.SelectedIndex == -1)
                 {
                     this.listImagePath.SelectedIndex = 0;
                 }
@@ -157,7 +158,7 @@ namespace ImageCompare
             foreach (var image in imageList)
             {
                 image.UpdateViewRect();
-            }
+            }   
 
             if(imageList.Count > 0)
                 imageList[0].UpdateViewRect();
@@ -169,14 +170,28 @@ namespace ImageCompare
         {
             if (viewMode == ViewMode.Single)
             {
-                this.imageLayout.Controls.Clear();
+                for (int i = 0; i < imageList.Count; i++)
+                {
+                    if (i == this.listImagePath.SelectedIndex)
+                    {
+                        imageList[i].Visible = true;
+                    }
+                }
 
-                this.imageLayout.Controls.Add(imageList[this.listImagePath.SelectedIndex]);
+                for (int i = 0; i < imageList.Count; i++)
+                {
+                    if (i != this.listImagePath.SelectedIndex)
+                    {
+                        imageList[i].Visible = false;
+                    }
+                }
 
-                if (imageList.Count > 0)
-                    imageList[0].UpdateViewRect();
-                UpdateImages();
-                this.imageLayout.Refresh();
+                //this.imageLayout.Controls.Add(imageList[this.listImagePath.SelectedIndex]);
+
+                //if (imageList.Count > 0)
+                //    imageList[0].UpdateViewRect();
+                //UpdateImages();
+                //this.imageLayout.Refresh();
             }
         }
 
