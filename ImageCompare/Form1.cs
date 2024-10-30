@@ -48,49 +48,18 @@ namespace ImageCompare
 
         public static Form1 instance = null;
 
-
-        public void Reload()
+        private void UpdateImageLayout()
         {
-
 
             // Remove old view
             this.imageLayout.Controls.Clear();
 
-            foreach(var im in imageList)
-            {
-                im.Free();
-            }
-            imageList.Clear();
-
-            this.listImagePath.Items.Clear();
-            this.listImagePath.Items.Add("D:/data/test/aa_cpu.tif");
-            this.listImagePath.Items.Add("D:/data/test/aa_cpu.tif");
-            this.listImagePath.Items.Add("D:/data/test/aa_cpu.tif");
-
-
-            List<string> file = this.listImagePath.Items.Cast<String>().ToList();
-
-            try
-            {
-                foreach (var im in file)
-                {
-                    var newImageBox = new ImageView(im);
-                    newImageBox.Dock = DockStyle.Fill;
-
-                    imageList.Add(newImageBox);
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"Error: {e}", "Failed to load files", MessageBoxButtons.OK);
-
-                throw;
-            }
-
-
             if (viewMode == ViewMode.ALl)
             {
-
+                foreach (var image in imageList)
+                {
+                    image.Visible = true;
+                }
 
                 // View all
                 if (imageList.Count == 1)
@@ -131,7 +100,8 @@ namespace ImageCompare
                     this.imageLayout.Controls.Add(imageList[2], 2, 0);
                 }
             }
-            else{
+            else
+            {
                 this.imageLayout.RowCount = 1;
                 this.imageLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 
@@ -145,7 +115,7 @@ namespace ImageCompare
                 }
 
                 // Set to active selection
-                if (this.listImagePath.SelectedIndex == -1)
+                if (this.listImagePath.SelectedIndex == -1 && this.listImagePath.Items.Count > 0)
                 {
                     this.listImagePath.SelectedIndex = 0;
                 }
@@ -158,12 +128,55 @@ namespace ImageCompare
             foreach (var image in imageList)
             {
                 image.UpdateViewRect();
-            }   
+            }
 
-            if(imageList.Count > 0)
+            if (imageList.Count > 0)
                 imageList[0].UpdateViewRect();
+        }
+        public void Reload()
+        {
 
-            
+
+            // Remove old view
+            this.imageLayout.Controls.Clear();
+
+            foreach(var im in imageList)
+            {
+                im.Free();
+            }
+            imageList.Clear();
+
+            this.listImagePath.Items.Clear();
+            this.listImagePath.Items.Add("D:/data/test/aa_cpu.tif");
+            this.listImagePath.Items.Add("D:/data/test/aa_cpu.tif");
+            this.listImagePath.Items.Add("D:/data/test/aa_cpu.tif");
+
+
+            List<string> file = this.listImagePath.Items.Cast<String>().ToList();
+
+            try
+            {
+                foreach (var im in file)
+                {
+                    var newImageBox = new ImageView(im);
+                    newImageBox.Dock = DockStyle.Fill;
+
+                    imageList.Add(newImageBox);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error: {e}", "Failed to load files", MessageBoxButtons.OK);
+
+                throw;
+            }
+
+
+            UpdateImageLayout();
+
+
+
+
         }
 
         private void UpdateCurrentImageInSingleView()
@@ -202,12 +215,22 @@ namespace ImageCompare
 
         private void viewAllBtn_CheckedChanged(object sender, EventArgs e)
         {
-            viewMode = ViewMode.ALl;
+            if(this.viewAllBtn.Checked)
+            {
+                viewMode = ViewMode.ALl;
+
+                UpdateImageLayout();
+            }
+
         }
 
         private void viewSingle_CheckedChanged(object sender, EventArgs e)
         {
-            viewMode = ViewMode.Single;
+            if (this.viewSingle.Checked)
+            {
+                viewMode = ViewMode.Single;
+                UpdateImageLayout();
+            }
         }
 
         private void listImagePath_SelectedIndexChanged(object sender, EventArgs e)
