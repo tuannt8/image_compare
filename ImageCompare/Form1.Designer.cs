@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ImageCompare
 {
@@ -22,6 +25,8 @@ namespace ImageCompare
             base.Dispose(disposing);
         }
 
+
+
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -39,12 +44,12 @@ namespace ImageCompare
             this.tableControl = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonListAdd = new System.Windows.Forms.Button();
             this.buttonListDelete = new System.Windows.Forms.Button();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonReload = new System.Windows.Forms.Button();
             this.flowViewOption = new System.Windows.Forms.FlowLayoutPanel();
             this.viewAllBtn = new System.Windows.Forms.RadioButton();
             this.viewSingle = new System.Windows.Forms.RadioButton();
-            this.buttonClear = new System.Windows.Forms.Button();
             this.tableLayout.SuspendLayout();
             this.sideBar.SuspendLayout();
             this.tableControl.SuspendLayout();
@@ -122,6 +127,7 @@ namespace ImageCompare
             // 
             // listImagePath
             // 
+            this.listImagePath.AllowDrop = true;
             this.listImagePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.listImagePath.FormattingEnabled = true;
             this.listImagePath.ItemHeight = 25;
@@ -130,6 +136,8 @@ namespace ImageCompare
             this.listImagePath.Size = new System.Drawing.Size(391, 304);
             this.listImagePath.TabIndex = 1;
             this.listImagePath.SelectedIndexChanged += new System.EventHandler(this.listImagePath_SelectedIndexChanged);
+            this.listImagePath.DragDrop += new System.Windows.Forms.DragEventHandler(this.listImagePath_DragDrop);
+            this.listImagePath.DragEnter += new System.Windows.Forms.DragEventHandler(this.listImagePath_DragEnter);
             // 
             // tableControl
             // 
@@ -161,6 +169,15 @@ namespace ImageCompare
             this.buttonListDelete.Text = "-";
             this.buttonListDelete.UseVisualStyleBackColor = true;
             this.buttonListDelete.Click += new System.EventHandler(this.buttonListDelete_Click);
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(134, 3);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(94, 42);
+            this.buttonClear.TabIndex = 2;
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanel1
             // 
@@ -200,7 +217,7 @@ namespace ImageCompare
             this.viewAllBtn.Checked = true;
             this.viewAllBtn.Location = new System.Drawing.Point(3, 3);
             this.viewAllBtn.Name = "viewAllBtn";
-            this.viewAllBtn.Size = new System.Drawing.Size(89, 39);
+            this.viewAllBtn.Size = new System.Drawing.Size(67, 29);
             this.viewAllBtn.TabIndex = 0;
             this.viewAllBtn.TabStop = true;
             this.viewAllBtn.Text = "All";
@@ -210,22 +227,13 @@ namespace ImageCompare
             // viewSingle
             // 
             this.viewSingle.AutoSize = true;
-            this.viewSingle.Location = new System.Drawing.Point(101, 4);
+            this.viewSingle.Location = new System.Drawing.Point(76, 3);
             this.viewSingle.Name = "viewSingle";
-            this.viewSingle.Size = new System.Drawing.Size(111, 39);
+            this.viewSingle.Size = new System.Drawing.Size(83, 29);
             this.viewSingle.TabIndex = 1;
             this.viewSingle.Text = "One";
             this.viewSingle.UseVisualStyleBackColor = true;
             this.viewSingle.CheckedChanged += new System.EventHandler(this.viewSingle_CheckedChanged);
-            // 
-            // buttonClear
-            // 
-            this.buttonClear.Location = new System.Drawing.Point(134, 3);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(94, 42);
-            this.buttonClear.TabIndex = 2;
-            this.buttonClear.Text = "Clear";
-            this.buttonClear.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

@@ -94,9 +94,8 @@ namespace ImageCompare
             }
 
             // Color
-           
-            int rawX = (int)(e.X / scale + imageRect.X);
-            int rawY = (int)(e.Y / scale + imageRect.Y);
+            int rawX = (int)(e.X / scale + imageRect.X + 0.5);
+            int rawY = (int)(e.Y / scale + imageRect.Y + 0.5);
 
             if(rawX >= 0 && rawY >= 0 && rawX < mBitmap.Width && rawY < mBitmap.Height)
             {

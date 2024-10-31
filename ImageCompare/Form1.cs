@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using System.Collections;
+using System.Collections.Specialized;
 
 namespace ImageCompare
 {
@@ -30,6 +32,13 @@ namespace ImageCompare
 
             InitializeComponent();
 
+            this.FormClosing += OnClose;
+            ReloadFileList();
+        }
+
+        protected void OnClose(object sender, EventArgs e)
+        {
+            SaveFileList(); 
         }
 
         public void UpdateImages()
@@ -45,6 +54,32 @@ namespace ImageCompare
             this.colorText.Text = $"x: {x}, y: {y}; R: {c.R}, G: {c.G}, B: {c.B}";
         }
 
+        private void ReloadFileList()
+        {
+            StringCollection list = Properties.Settings.Default.lastFileList;
+            if (list != null)
+            {
+                 this.listImagePath.Items.Clear();
+                foreach (var file in list)
+                {
+                    this.listImagePath.Items.Add(file);
+                }               
+            }
+
+        }
+
+        private void SaveFileList()
+        {
+            List<string> file = this.listImagePath.Items.Cast<String>().ToList();
+
+
+            StringCollection test = new StringCollection();
+            test.AddRange(file.ToArray());
+
+            Properties.Settings.Default.lastFileList = test;
+            Properties.Settings.Default.Save();
+
+        }
 
         public static Form1 instance = null;
 
@@ -133,10 +168,39 @@ namespace ImageCompare
             if (imageList.Count > 0)
                 imageList[0].UpdateViewRect();
         }
+
+        private void listImagePath_DragEnter(object sender, DragEventArgs e)
+        {
+            Console.WriteLine("Drag enter");
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void listImagePath_DragLeave(object sender, DragEventArgs e)
+        {
+            Console.WriteLine("Drag leave");
+        }
+
+        private void listImagePath_DragDrop(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+
+            var dropped = ((string[])e.Data.GetData(DataFormats.FileDrop));
+            var files = dropped.ToList();
+
+            Console.WriteLine($"Dragged {files}");
+
+            if (!files.Any())
+                return;
+
+            foreach (var file in files)
+            {
+                this.listImagePath.Items.Add(file);
+            }
+        }
+
+
         public void Reload()
         {
-
-
             // Remove old view
             this.imageLayout.Controls.Clear();
 
@@ -146,37 +210,27 @@ namespace ImageCompare
             }
             imageList.Clear();
 
-            this.listImagePath.Items.Clear();
-            this.listImagePath.Items.Add("D:/data/test/aa_cpu.tif");
-            this.listImagePath.Items.Add("D:/data/test/aa_cpu.tif");
-            this.listImagePath.Items.Add("D:/data/test/aa_cpu.tif");
-
-
             List<string> file = this.listImagePath.Items.Cast<String>().ToList();
 
-            try
+            foreach (var im in file)
             {
-                foreach (var im in file)
+                try
                 {
                     var newImageBox = new ImageView(im);
                     newImageBox.Dock = DockStyle.Fill;
 
                     imageList.Add(newImageBox);
                 }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"Error: {e}", "Failed to load files", MessageBoxButtons.OK);
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Error: {e}. File is removed", "Failed to load files", MessageBoxButtons.OK);
 
-                throw;
-            }
+                    this.listImagePath.Items.Remove(im);
+                }
 
+            }
 
             UpdateImageLayout();
-
-
-
-
         }
 
         private void UpdateCurrentImageInSingleView()
@@ -198,13 +252,6 @@ namespace ImageCompare
                         imageList[i].Visible = false;
                     }
                 }
-
-                //this.imageLayout.Controls.Add(imageList[this.listImagePath.SelectedIndex]);
-
-                //if (imageList.Count > 0)
-                //    imageList[0].UpdateViewRect();
-                //UpdateImages();
-                //this.imageLayout.Refresh();
             }
         }
 
