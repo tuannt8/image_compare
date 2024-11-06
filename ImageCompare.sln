@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageCompare", "ImageCompare\ImageCompare.csproj", "{77599F2A-27B0-4AE5-B4EE-2197020EAFCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT_Viewer", "TNT_Viewer\TNT_Viewer.csproj", "{D10B362E-65C1-4FA9-91F4-4BBC915D2440}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{77599F2A-27B0-4AE5-B4EE-2197020EAFCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77599F2A-27B0-4AE5-B4EE-2197020EAFCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77599F2A-27B0-4AE5-B4EE-2197020EAFCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D10B362E-65C1-4FA9-91F4-4BBC915D2440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10B362E-65C1-4FA9-91F4-4BBC915D2440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10B362E-65C1-4FA9-91F4-4BBC915D2440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10B362E-65C1-4FA9-91F4-4BBC915D2440}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -40,6 +40,8 @@ namespace ImageCompare
             imageRect.Width = w / scale;
             imageRect.Height = h / scale;
 
+            Console.WriteLine(imageRect);
+
             viewRect.X = 0;
             viewRect.Y = 0;
             viewRect.Width = w;
