@@ -18,9 +18,6 @@ namespace TNT_Viewer
 
             InitializeComponent();
 
-
-
-            this.splitTreeMain.SplitterDistance = this.splitTreeMain.Width / 10;
             this.splitThumbMain.SplitterDistance = this.splitThumbMain.Height * 9/ 10;
         }
     }

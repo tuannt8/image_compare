@@ -9,5 +9,13 @@ namespace TNT_Viewer
 {
     internal class Toolbar : TableLayoutPanel
     {
+        public Toolbar() : base()
+        {
+            this.btn1 = new Button();
+
+            this.Controls.Add(this.btn1);
+        }
+
+        private Button btn1;
     }
 }
