@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace TNT_Viewer
 {
+    // Cache full size image buffer
+    internal class ImageCache
+    {   
+        
+    }
+
     internal class ThumbnailView : ListView
     {
         private void DownloadImagesFromWeb(List<string> adress, ImageList il)
@@ -47,6 +55,30 @@ namespace TNT_Viewer
                 lst.ImageIndex = count++;
                 this.Items.Add(lst);
             }
+        }
+
+
+        internal bool Reload(String dir)
+        {
+            this.Items.Clear();
+
+            if(Directory.Exists(dir)) 
+            {
+                ImageList imageList = new ImageList();
+                foreach(string file in Directory.GetFiles(dir))
+                {
+                    var ext = Path.GetExtension(file);
+                    if (ext == "tif" || ext == "tiff")
+                    {
+                        // Get thumbnail and metadata
+                        Bitmap bmp = (Bitmap)Image.FromFile(file);
+                    }
+                }
+
+                return true;
+            }
+            
+            return false;
         }
     }
 }

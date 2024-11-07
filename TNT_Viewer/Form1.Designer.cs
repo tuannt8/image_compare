@@ -31,17 +31,22 @@ namespace TNT_Viewer
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.mainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.splitThumbMain = new System.Windows.Forms.SplitContainer();
+            this.imageViewLayout = new TNT_Viewer.ImageViewLayout();
             this.thumbTableLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.ThumbnailView = new ThumbnailView();
             this.directoryBar = new TNT_Viewer.DirectoryBar();
+            this.ThumbnailView = new TNT_Viewer.ThumbnailView();
             this.toolbar = new TNT_Viewer.Toolbar();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitThumbMain)).BeginInit();
+            this.splitThumbMain.Panel1.SuspendLayout();
             this.splitThumbMain.Panel2.SuspendLayout();
             this.splitThumbMain.SuspendLayout();
             this.thumbTableLayout.SuspendLayout();
+            this.directoryBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainLayout
@@ -71,6 +76,7 @@ namespace TNT_Viewer
             // splitThumbMain.Panel1
             // 
             this.splitThumbMain.Panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.splitThumbMain.Panel1.Controls.Add(this.imageViewLayout);
             // 
             // splitThumbMain.Panel2
             // 
@@ -80,6 +86,15 @@ namespace TNT_Viewer
             this.splitThumbMain.SplitterDistance = 566;
             this.splitThumbMain.SplitterWidth = 20;
             this.splitThumbMain.TabIndex = 0;
+            // 
+            // imageViewLayout
+            // 
+            this.imageViewLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 977F));
+            this.imageViewLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageViewLayout.Location = new System.Drawing.Point(0, 0);
+            this.imageViewLayout.Name = "imageViewLayout";
+            this.imageViewLayout.Size = new System.Drawing.Size(977, 566);
+            this.imageViewLayout.TabIndex = 0;
             // 
             // thumbTableLayout
             // 
@@ -96,6 +111,15 @@ namespace TNT_Viewer
             this.thumbTableLayout.Size = new System.Drawing.Size(977, 263);
             this.thumbTableLayout.TabIndex = 0;
             // 
+            // directoryBar
+            // 
+            this.directoryBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.directoryBar.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.directoryBar.Location = new System.Drawing.Point(0, 0);
+            this.directoryBar.Name = "directoryBar";
+            this.directoryBar.Size = new System.Drawing.Size(977, 50);
+            this.directoryBar.TabIndex = 0;
+            // 
             // ThumbnailView
             // 
             this.ThumbnailView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -105,17 +129,6 @@ namespace TNT_Viewer
             this.ThumbnailView.Size = new System.Drawing.Size(971, 207);
             this.ThumbnailView.TabIndex = 1;
             this.ThumbnailView.UseCompatibleStateImageBehavior = false;
-            // 
-            // directoryBar
-            // 
-            this.directoryBar.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.directoryBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 977F));
-            this.directoryBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.directoryBar.Location = new System.Drawing.Point(3, 3);
-            this.directoryBar.Name = "directoryBar";
-            this.directoryBar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 94F));
-            this.directoryBar.Size = new System.Drawing.Size(971, 44);
-            this.directoryBar.TabIndex = 0;
             // 
             // toolbar
             // 
@@ -127,6 +140,7 @@ namespace TNT_Viewer
             this.toolbar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 94F));
             this.toolbar.Size = new System.Drawing.Size(977, 94);
             this.toolbar.TabIndex = 1;
+
             // 
             // Form1
             // 
@@ -137,10 +151,14 @@ namespace TNT_Viewer
             this.Name = "Form1";
             this.Text = "Form1";
             this.mainLayout.ResumeLayout(false);
+            this.splitThumbMain.Panel1.ResumeLayout(false);
             this.splitThumbMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitThumbMain)).EndInit();
             this.splitThumbMain.ResumeLayout(false);
             this.thumbTableLayout.ResumeLayout(false);
+            this.thumbTableLayout.PerformLayout();
+            this.directoryBar.ResumeLayout(false);
+            this.directoryBar.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -149,11 +167,13 @@ namespace TNT_Viewer
 
         private Toolbar toolbar;
         private DirectoryBar directoryBar;
+        private ImageViewLayout imageViewLayout;
 
         private TableLayoutPanel mainLayout;
         private SplitContainer splitThumbMain;
         private TableLayoutPanel thumbTableLayout;
-        private ThumbnailView ThumbnailView;
+        internal ThumbnailView ThumbnailView;
+
     }
 }
 

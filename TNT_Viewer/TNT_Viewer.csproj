@@ -55,6 +55,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageViewLayout.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThumbnailView.cs">
@@ -63,6 +66,9 @@
     <Compile Include="Toolbar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="DirectoryBar.resx">
+      <DependentUpon>DirectoryBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
