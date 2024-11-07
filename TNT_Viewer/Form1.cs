@@ -25,6 +25,9 @@ namespace TNT_Viewer
             InitializeComponent();
 
             this.splitThumbMain.SplitterDistance = this.splitThumbMain.Height * 8 / 10;
+
+            // Reload
+            this.directoryBar.Reload();
         }
 
         public static Form1 Instance = null;

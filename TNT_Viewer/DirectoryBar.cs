@@ -20,6 +20,11 @@ namespace TNT_Viewer
         {
             InitializeComponent();
 
+
+        }
+
+        public void Reload()
+        {
             // Load directory list
             StringCollection list = Properties.Settings.Default.ListDirectories;
             if (list != null)
@@ -69,7 +74,7 @@ namespace TNT_Viewer
             this.addDirectoryBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text ;
             this.addDirectoryBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addDirectoryBtn.Name = "toolStripButton1";
-            this.addDirectoryBtn.Size = new System.Drawing.Size(46, 44);
+            this.addDirectoryBtn.Size = new System.Drawing.Size(46, 50);
             this.addDirectoryBtn.Text = "Load";
             this.addDirectoryBtn.Click += AddDirectory;
 
@@ -80,16 +85,21 @@ namespace TNT_Viewer
 
         }
 
-        private void DirectoryChanged(object sender, System.EventArgs e)
+        internal void DirectoryChanged(object sender, System.EventArgs e)
         {
             String curDir = this.directoryListComboBox.SelectedItem as String;
             Settings.Default.CurrentDirectory = curDir;
             Settings.Default.Save();
 
-            if(!Form1.Instance.ThumbnailView.Reload(curDir))
+            if(Form1.Instance.ThumbnailView != null)
             {
-                MessageBox.Show($"Directory {curDir} is invalid.", "Failed to load files", MessageBoxButtons.OK);
+                if (!Form1.Instance.ThumbnailView.Reload(curDir))
+                {
+                    MessageBox.Show($"Directory {curDir} is invalid.", "Failed to load files", MessageBoxButtons.OK);
+                }
             }
+
+
         }
 
         // TODO Drag and drop 

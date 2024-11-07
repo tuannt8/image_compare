@@ -42,6 +42,7 @@ namespace TNT_Viewer
             this.toolbar = new TNT_Viewer.Toolbar();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitThumbMain)).BeginInit();
+
             this.splitThumbMain.Panel1.SuspendLayout();
             this.splitThumbMain.Panel2.SuspendLayout();
             this.splitThumbMain.SuspendLayout();
@@ -150,6 +151,8 @@ namespace TNT_Viewer
             this.Controls.Add(this.mainLayout);
             this.Name = "Form1";
             this.Text = "Form1";
+
+
             this.mainLayout.ResumeLayout(false);
             this.splitThumbMain.Panel1.ResumeLayout(false);
             this.splitThumbMain.Panel2.ResumeLayout(false);
@@ -165,9 +168,9 @@ namespace TNT_Viewer
 
         #endregion
 
-        private Toolbar toolbar;
-        private DirectoryBar directoryBar;
-        private ImageViewLayout imageViewLayout;
+        internal Toolbar toolbar;
+        internal DirectoryBar directoryBar;
+        internal ImageViewLayout imageViewLayout;
 
         private TableLayoutPanel mainLayout;
         private SplitContainer splitThumbMain;
